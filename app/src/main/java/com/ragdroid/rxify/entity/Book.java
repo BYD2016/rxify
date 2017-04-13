@@ -4,7 +4,7 @@ package com.ragdroid.rxify.entity;
  * Created by garimajain on 04/12/16.
  */
 
-public class Book {
+public final class Book {
 
     public String name;
     public String authorName;

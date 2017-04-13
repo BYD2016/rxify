@@ -10,7 +10,7 @@ import com.ragdroid.rxify.dagger.DaggerAppComponent;
 /**
  * Created by garimajain on 30/08/16.
  */
-public class RxifyApplication extends Application {
+public final class RxifyApplication extends Application {
 
     private AppComponent appComponent;
 
@@ -22,6 +22,7 @@ public class RxifyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         initComponent();
     }
 

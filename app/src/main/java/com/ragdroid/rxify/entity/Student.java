@@ -6,7 +6,7 @@ import java.util.Random;
  * Created by garimajain on 05/11/16.
  */
 
-public class Student {
+public final class Student {
 
     private Random random = new Random();
 
@@ -27,7 +27,7 @@ public class Student {
     }
 
 
-    public class Hair {
+    public final class Hair {
 
         Hair() {
             this.dna = random.nextInt();

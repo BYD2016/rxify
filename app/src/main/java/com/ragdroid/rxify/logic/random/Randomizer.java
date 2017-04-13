@@ -6,7 +6,7 @@ import javax.inject.Inject;
  * Created by garimajain on 05/11/16.
  */
 
-public class Randomizer {
+public final class Randomizer {
 
     private static final int MAX_RANDOM = 10;
     private static final int MIN_RANDOM = 1;

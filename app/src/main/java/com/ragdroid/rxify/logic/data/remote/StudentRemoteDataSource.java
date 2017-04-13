@@ -6,6 +6,7 @@ import com.ragdroid.rxify.core.data.StudentDataSource;
 import com.ragdroid.rxify.entity.Student;
 import com.ragdroid.rxify.logic.random.Randomizer;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,15 +20,16 @@ import io.reactivex.Single;
  * Simulates network call by adding latency
  * Created by garimajain on 05/11/16.
  */
-public class StudentRemoteDataSource implements StudentDataSource {
+public final class StudentRemoteDataSource implements StudentDataSource {
 
-    private final LinkedHashMap<String, Student> studentMap;
+    private final HashMap<String, Student> studentMap;
     private final Randomizer randomizer;
 
     @Inject
     public StudentRemoteDataSource(Randomizer randomizer) {
         this.randomizer = randomizer;
         this.studentMap = new LinkedHashMap<>(5);
+
         addStudent("Hermione");
         addStudent("Harry");
         addStudent("Ron");
@@ -47,7 +49,9 @@ public class StudentRemoteDataSource implements StudentDataSource {
         if (student == null) {
             student = addStudent(name);
         }
-        return Observable.just(student).delay(randomizer.randomInRange(2, 5), TimeUnit.SECONDS);
+
+        return Observable.just(student)
+                .delay(randomizer.randomInRange(2, 5), TimeUnit.SECONDS);
     }
 
     @Override

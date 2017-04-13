@@ -19,7 +19,7 @@ import dagger.Provides;
  * Created by garimajain on 30/08/16.
  */
 @Module
-public class AppModule {
+public final class AppModule {
 
     Application application;
 

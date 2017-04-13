@@ -24,7 +24,7 @@ import io.reactivex.functions.Predicate;
  * Wish there was some API I could hit
  * Created by garimajain on 05/11/16.
  */
-public class BookRemoteDataSource implements BookDataSource {
+public final class BookRemoteDataSource implements BookDataSource {
 
     private final Randomizer randomizer;
     private List<Book> bookList;
@@ -128,18 +128,17 @@ public class BookRemoteDataSource implements BookDataSource {
 
     }
 
-
     private Book addBook(String bookName) {
         Book book = new Book(bookName);
         bookList.add(book);
         return book;
     }
 
-
     @Override
     public Observable<List<Book>> getBooksJinxed(@NonNull final String query) {
         //more the length, lesser the delay
         int start = 3000 / query.length();
+
         //wanted to perform `initBooks()` in background as well
         return getBooks(query)
                 .delay(randomizer.randomInRange(start, start + 100), TimeUnit.MILLISECONDS);
@@ -147,20 +146,15 @@ public class BookRemoteDataSource implements BookDataSource {
 
     @Override
     public Observable<List<Book>> getBooks(@NonNull final String query) {
-        return Observable.fromCallable(new Callable<List<Book>>() {
-            @Override
-            public List<Book> call() throws Exception {
-                if (bookList == null) {
-                    BookRemoteDataSource.this.initBooksDB();
-                }
-                return bookList;
+        return Observable.fromCallable(() -> {
+            if (bookList == null) {
+                BookRemoteDataSource.this.initBooksDB();
             }
-        }).flatMap(new Function<List<Book>, ObservableSource<Book>>() {
-            @Override
-            public ObservableSource<Book> apply(List<Book> books) throws Exception {
-                return Observable.fromIterable(books);
-            }
-        }).filter(book -> book.name.contains(query)).toList()
-                .toObservable();
+            return bookList;
+        })
+        .flatMap( Observable::fromIterable )
+        .filter(book -> book.name.contains(query))
+        .toList()
+        .toObservable();
     }
 }

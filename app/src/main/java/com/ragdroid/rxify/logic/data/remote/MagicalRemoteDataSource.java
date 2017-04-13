@@ -15,7 +15,7 @@ import io.reactivex.Observable;
  * Created by garimajain on 05/11/16.
  */
 
-public class MagicalRemoteDataSource implements MagicalDataSource {
+public final class MagicalRemoteDataSource implements MagicalDataSource {
 
     private final Randomizer randomizer;
 
