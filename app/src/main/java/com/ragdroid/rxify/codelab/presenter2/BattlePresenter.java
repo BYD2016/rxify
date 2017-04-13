@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class BattlePresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
+public final class BattlePresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
 
     public Observable<Long> inputValues = Observable.interval(1, 1, TimeUnit.MICROSECONDS);
 

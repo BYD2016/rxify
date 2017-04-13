@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class IntervalRangePresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
+public final class IntervalRangePresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
 
     @Inject
     public IntervalRangePresenter(BaseSchedulerProvider provider) {
@@ -23,7 +23,7 @@ public class IntervalRangePresenter extends BaseCLPresenter<Long> implements Cod
 
     @Override
     protected Disposable getDisposable() {
-        return Observable.intervalRange(20, 5, 1000, 1000, TimeUnit.MILLISECONDS)
+        return Observable.intervalRange(20, 5, 1, 1, TimeUnit.SECONDS)
                 .compose(lazyTransformer)
                 .subscribe(next, error, complete);
     }

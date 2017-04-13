@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class MapPresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
+public final class MapPresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
 
     Observable<Long> inputValues = Observable.intervalRange(1, 10, 100, 500, TimeUnit.MILLISECONDS);
 

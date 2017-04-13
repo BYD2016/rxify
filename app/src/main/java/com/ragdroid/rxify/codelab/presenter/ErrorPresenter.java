@@ -12,7 +12,8 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class ErrorPresenter extends BaseCLPresenter<Object> implements CodeLabContract.Presenter {
+public final class ErrorPresenter extends BaseCLPresenter<Object> implements
+        CodeLabContract.Presenter {
 
     @Inject
     public ErrorPresenter(BaseSchedulerProvider provider) {

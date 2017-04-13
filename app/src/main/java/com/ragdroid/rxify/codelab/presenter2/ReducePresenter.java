@@ -16,7 +16,7 @@ import io.reactivex.functions.BiFunction;
  * Created by garimajain on 15/01/17.
  */
 
-public class ReducePresenter extends BaseCLPresenter<String> implements CodeLabContract.Presenter {
+public final class ReducePresenter extends BaseCLPresenter<String> implements CodeLabContract.Presenter {
 
     //Input
     Observable<String> inputValues = Observable.fromIterable(
@@ -33,12 +33,7 @@ public class ReducePresenter extends BaseCLPresenter<String> implements CodeLabC
     @Override
     protected Disposable getDisposable() {
         return inputValues
-                .reduce(new BiFunction<String, String, String>() {
-                    @Override
-                    public String apply(String old, String value) throws Exception {
-                        return old + " | " + value;
-                    }
-                })
+                .reduce((old, value) -> old + " | " + value)
                 .defaultIfEmpty("No item")
                 .toObservable()
                 .compose(lazyTransformer)

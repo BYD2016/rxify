@@ -18,35 +18,23 @@ import io.reactivex.functions.Function;
  * Created by garimajain on 15/01/17.
  */
 
-public class AssignmentPresenter extends BaseCLPresenter<String> implements CodeLabContract.Presenter {
+public final class AssignmentPresenter extends BaseCLPresenter<String> implements
+        CodeLabContract.Presenter {
 
     //Input
-    Observable<String> gryffindorObservable = Observable.defer(new Callable<ObservableSource<? extends String>>() {
-        @Override
-        public ObservableSource<? extends String> call() throws Exception {
-            return Observable.range(1, 2)
-                    .flatMap(new Function<Integer, ObservableSource<String>>() {
-                        @Override
-                        public ObservableSource<String> apply(Integer integer) throws Exception {
-                            return Observable.just("G" + integer)
-                                    .delay(integer * 500, TimeUnit.MILLISECONDS);
-                        }
-                    });
-        }
-    });
-    Observable<String> slytherinObservable = Observable.defer(new Callable<ObservableSource<? extends String>>() {
-        @Override
-        public ObservableSource<? extends String> call() throws Exception {
-            return Observable.range(1, 2)
-                    .flatMap(new Function<Integer, ObservableSource<String>>() {
-                        @Override
-                        public ObservableSource<String> apply(Integer integer) throws Exception {
-                            return Observable.just("S" + integer)
-                                    .delay(integer * 700, TimeUnit.MILLISECONDS);
-                        }
-                    });
-        }
-    });
+    Observable<String> gryffindorObservable = Observable.defer(() -> Observable.range(1, 2)
+            .flatMap((Integer integer) -> {
+                    return Observable.just("G" + integer)
+                            .delay(integer * 500, TimeUnit.MILLISECONDS);
+                }
+            ));
+
+    Observable<String> slytherinObservable = Observable.defer(() -> Observable.range(1, 2)
+            .flatMap( (Integer integer) -> {
+                    return Observable.just("S" + integer)
+                            .delay(integer * 700, TimeUnit.MILLISECONDS);
+                }
+            ));
 
     //TODO AssignmentEvaluator
     //Input is G1(500 ms), S1(700ms), G2(1000 ms), S2(1400 ms)

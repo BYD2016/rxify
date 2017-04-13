@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class NeverPresenter extends BaseCLPresenter<Object> implements CodeLabContract.Presenter {
+public final class NeverPresenter extends BaseCLPresenter<Object> implements CodeLabContract.Presenter {
 
     @Inject
     public NeverPresenter(BaseSchedulerProvider provider) {

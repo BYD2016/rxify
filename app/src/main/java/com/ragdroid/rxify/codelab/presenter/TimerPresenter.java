@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class TimerPresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
+public final class TimerPresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
 
     @Inject
     public TimerPresenter(BaseSchedulerProvider provider) {

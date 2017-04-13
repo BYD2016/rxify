@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class JustPresenter extends BaseCLPresenter<String> implements CodeLabContract.Presenter {
+public final class JustPresenter extends BaseCLPresenter<String> implements CodeLabContract.Presenter {
 
     @Inject
     public JustPresenter(BaseSchedulerProvider provider) {

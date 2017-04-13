@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class TakePresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
+public final class TakePresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
 
     //Input
     Observable<Integer> inputValues = Observable.range(0, 10);

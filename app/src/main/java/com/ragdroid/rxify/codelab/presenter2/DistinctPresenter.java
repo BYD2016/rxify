@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class DistinctPresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
+public final class DistinctPresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
 
     //Input
     Observable<Integer> inputValues = Observable.fromIterable(Arrays.asList(1, 1, 2, 3, 2));

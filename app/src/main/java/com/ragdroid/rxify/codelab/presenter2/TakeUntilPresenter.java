@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class TakeUntilPresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
+public final class TakeUntilPresenter extends BaseCLPresenter<Long> implements CodeLabContract.Presenter {
 
     //Input
     Observable<Long> inputValues = Observable.interval(100, TimeUnit.MILLISECONDS);

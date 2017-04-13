@@ -18,14 +18,11 @@ import io.reactivex.functions.Function;
  * Created by garimajain on 15/01/17.
  */
 
-public class ThreadingPresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
+public final class ThreadingPresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
 
-    public Observable<Integer> inputValues = Observable.defer(new Callable<ObservableSource<? extends Integer>>() {
-        @Override
-        public ObservableSource<? extends Integer> call() throws Exception {
-            Log.d("Threading", "Creating observable on " + Thread.currentThread().getName());
-            return Observable.range(1, 10);
-        }
+    public Observable<Integer> inputValues = Observable.defer(() -> {
+        Log.d("Threading", "Creating observable on " + Thread.currentThread().getName());
+        return Observable.range(1, 10);
     });
 
     public ThreadingPresenter(BaseSchedulerProvider provider) {
@@ -38,30 +35,17 @@ public class ThreadingPresenter extends BaseCLPresenter<Integer> implements Code
         return inputValues
 //                .subscribeOn(provider.computation())
 //                .observeOn(provider.io())
-                .doOnNext(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        Log.d("Threading", "Emitting " + integer
-                                + " on " + Thread.currentThread().getName());
-                    }
-                })
+                .doOnNext(integer -> Log.d("Threading", "Emitting " + integer
+                        + " on " + Thread.currentThread().getName()))
 //                .observeOn(provider.computation())
-                .map(new Function<Integer, Integer>() {
-                    @Override
-                    public Integer apply(Integer integer) throws Exception {
-                        Log.d("Threading", "Mapping " + integer
-                                + " on " + Thread.currentThread().getName());
-                        return integer * 1000;
-                    }
+                .map(integer -> {
+                    Log.d("Threading", "Mapping " + integer
+                            + " on " + Thread.currentThread().getName());
+                    return integer * 1000;
                 })
 //                .observeOn(provider.ui())
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        Log.d("Threading", "Received " + integer
-                                + " on " + Thread.currentThread().getName());
-                    }
-                });
+                .subscribe(integer -> Log.d("Threading", "Received " + integer
+                        + " on " + Thread.currentThread().getName()));
     }
 
 

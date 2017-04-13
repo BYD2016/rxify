@@ -1,5 +1,7 @@
 package com.ragdroid.rxify.codelab.presenter2;
 
+import android.os.SystemClock;
+
 import com.ragdroid.rxify.codelab.CodeLabContract;
 import com.ragdroid.rxify.codelab.presenter.BaseCLPresenter;
 import com.ragdroid.rxify.core.BaseSchedulerProvider;
@@ -14,7 +16,7 @@ import io.reactivex.functions.Predicate;
  * Created by garimajain on 15/01/17.
  */
 
-public class FilterPresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
+public final class FilterPresenter extends BaseCLPresenter<Integer> implements CodeLabContract.Presenter {
 
     //Input
     Observable<Integer> inputValues = Observable.range(0,10);
@@ -30,6 +32,7 @@ public class FilterPresenter extends BaseCLPresenter<Integer> implements CodeLab
     protected Disposable getDisposable() {
         return inputValues
                 .filter(integer -> integer % 2 == 0)
+                .doOnNext( item -> SystemClock.sleep(1000) )
                 .compose(lazyTransformer)
                 .subscribe(next, error, complete);
     }

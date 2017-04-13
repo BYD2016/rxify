@@ -17,7 +17,7 @@ import io.reactivex.functions.Function;
  * Created by garimajain on 15/01/17.
  */
 
-public class FlatMapPresenter extends BaseCLPresenter<String> implements CodeLabContract.Presenter {
+public final class FlatMapPresenter extends BaseCLPresenter<String> implements CodeLabContract.Presenter {
 
     Observable<String> inputValues = Observable.fromIterable(Arrays.asList("Hello World!", "How Are You?"));
 
@@ -31,12 +31,9 @@ public class FlatMapPresenter extends BaseCLPresenter<String> implements CodeLab
     @Override
     protected Disposable getDisposable() {
         return inputValues
-                .flatMap(new Function<String, ObservableSource<String>>() {
-                    @Override
-                    public ObservableSource<String> apply(String inputString) throws Exception {
-                        return Observable.fromArray(inputString.split(" "));
-                    }
-                })
+                .flatMap( inputString ->
+                         Observable.fromArray(inputString.split(" "))
+                )
                 .compose(lazyTransformer)
                 .subscribe(next, error, complete);
     }
