@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.ragdroid.rxify.BaseActivity;
 import com.ragdroid.rxify.R;
-import com.ragdroid.rxify.codelab.ChillActivity;
 import com.ragdroid.rxify.codelab.list.CodeLabListActivity;
 import com.ragdroid.rxify.dagger.ActivityComponent;
 import com.ragdroid.rxify.library.LibraryActivity;
