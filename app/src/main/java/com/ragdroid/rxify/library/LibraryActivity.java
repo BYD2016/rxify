@@ -1,6 +1,7 @@
 package com.ragdroid.rxify.library;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,23 +22,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LibraryActivity extends BaseActivity<LibraryContract.Presenter> implements LibraryContract.View {
+public final class LibraryActivity extends BaseActivity<LibraryContract.Presenter> implements LibraryContract.View {
 
     @BindView(R.id.lib_fix_bug) FloatingActionButton fab;
     @BindView(R.id.lib_search_view) SearchView searchView;
     @BindView(R.id.lib_books_list) RecyclerView recyclerView;
+
     private ItemsViewAdapter adapter;
-
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_library;
-    }
-
-    @Override
-    protected void injectFrom(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-    }
 
     private SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
         @Override
@@ -53,19 +44,25 @@ public class LibraryActivity extends BaseActivity<LibraryContract.Presenter> imp
     };
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.activity_library;
+    }
+
+    @Override
+    protected void injectFrom(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         searchView.setOnQueryTextListener(textListener);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void setupActivity(Bundle savedInstanceState) {
+    protected void setupActivity(@Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -77,11 +74,11 @@ public class LibraryActivity extends BaseActivity<LibraryContract.Presenter> imp
     public void onFixBugToggleClicked() {
         searchView.setQuery("", false);
         presenter.onFixBugToggleClicked();
-        toggleFixBugToggle(presenter.getState());
+        toggleFixBugToggle(presenter.isAutoSearch());
     }
 
-    private void toggleFixBugToggle(boolean isFixed) {
-        if (isFixed) {
+    private void toggleFixBugToggle(boolean autoSearch) {
+        if (autoSearch) {
             fab.setImageResource(R.drawable.ic_bugit);
         } else {
             fab.setImageResource(R.drawable.ic_fixit);

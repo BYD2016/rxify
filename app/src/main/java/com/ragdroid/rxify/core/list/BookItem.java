@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by garimajain on 04/12/16.
  */
 
-public class BookItem extends BaseItem<Book, Void, BookItem.ViewHolder> {
+public final class BookItem extends BaseItem<Book, Void, BookItem.ViewHolder> {
 
     public BookItem(Book data, ItemHandlerProvider<Void> itemHandlerProvider) {
         super(data, itemHandlerProvider);

@@ -13,17 +13,15 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by garimajain on 08/11/16.
  */
 
-public class LibraryPresenter extends AbstractPresenter<LibraryContract.View> implements LibraryContract.Presenter {
+public final class LibraryPresenter extends AbstractPresenter<LibraryContract.View> implements
+        LibraryContract.Presenter {
 
     private static final String TAG = LibraryPresenter.class.getSimpleName();
     private final BookDataSource dataSource;
@@ -31,7 +29,7 @@ public class LibraryPresenter extends AbstractPresenter<LibraryContract.View> im
     PublishSubject<String> subject = PublishSubject.create();
 
     private Disposable disposable;
-    private boolean isFixed = false;
+    private boolean mAutoSearch = false;
 
     @Inject
     public LibraryPresenter(BookDataSource dataSource,
@@ -48,42 +46,25 @@ public class LibraryPresenter extends AbstractPresenter<LibraryContract.View> im
     }
 
     private void initDisposable() {
-        if (isFixed) {
+        if (mAutoSearch) {
             disposable = subject
                     .debounce(300, TimeUnit.MILLISECONDS)
-                    .switchMap(new Function<String, ObservableSource<List<Book>>>() {
-                        @Override
-                        public ObservableSource<List<Book>> apply(String s) throws Exception {
+                    .switchMap( s -> {
                             Log.d(TAG, "getting books for " + s);
                             return dataSource.getBooksJinxed(s);
                         }
-                    })
+                    )
                     .subscribeOn(provider.io())
                     .observeOn(provider.ui())
-                    .subscribe(new Consumer<List<Book>>() {
-                        @Override
-                        public void accept(List<Book> books) throws Exception {
-                            onBooksFetched(books);
-                        }
-                    });
+                    .subscribe(this::onBooksFetched);
         } else {
             disposable = subject
                     .debounce(300, TimeUnit.MILLISECONDS)
                     .observeOn(provider.io())
-                    .flatMap(new Function<String, ObservableSource<List<Book>>>() {
-                        @Override
-                        public ObservableSource<List<Book>> apply(String s) throws Exception {
-                            return dataSource.getBooksJinxed(s);
-                        }
-                    })
+                    .flatMap( dataSource::getBooksJinxed)
                     .subscribeOn(provider.io())
                     .observeOn(provider.ui())
-                    .subscribe(new Consumer<List<Book>>() {
-                        @Override
-                        public void accept(List<Book> books) throws Exception {
-                            onBooksFetched(books);
-                        }
-                    });
+                    .subscribe(this::onBooksFetched);
         }
     }
 
@@ -112,13 +93,13 @@ public class LibraryPresenter extends AbstractPresenter<LibraryContract.View> im
     }
 
     @Override
-    public boolean getState() {
-        return isFixed;
+    public boolean isAutoSearch() {
+        return mAutoSearch;
     }
 
     @Override
     public void onFixBugToggleClicked() {
-        this.isFixed = !isFixed;
+        this.mAutoSearch = !mAutoSearch;
         unsubscribe();
         initDisposable();
     }

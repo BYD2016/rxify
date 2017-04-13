@@ -22,7 +22,7 @@ public interface LibraryContract {
 
         void onQueryTextChange(String newText);
 
-        boolean getState();
+        boolean isAutoSearch();
 
         void onFixBugToggleClicked();
     }
