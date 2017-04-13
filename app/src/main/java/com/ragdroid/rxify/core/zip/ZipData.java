@@ -4,13 +4,18 @@ package com.ragdroid.rxify.core.zip;
  * Created by garimajain on 09/11/16.
  */
 
-public class ZipData {
+public final class ZipData {
 
     long fluxWeedTime;
     long crabHairTime;
 
     public ZipData() {
         reset();
+    }
+
+    public void reset() {
+        fluxWeedTime = 0L;
+        crabHairTime = 0L;
     }
 
     public void setFluxWeedTime(long fluxWeedTime) {
@@ -23,32 +28,15 @@ public class ZipData {
 
 
     public boolean isCrabHairFirst() {
-        if (crabHairTime == 0L) {
-            return false;
-        }
-        if (fluxWeedTime == 0L) {
-            return true;
-        }
-        return crabHairTime < fluxWeedTime;
+        return crabHairTime != 0L && (fluxWeedTime == 0L || crabHairTime < fluxWeedTime);
+    }
+
+    public boolean isFluxWeedFirst() {
+        return fluxWeedTime != 0L && (crabHairTime == 0L || fluxWeedTime < crabHairTime);
     }
 
     public boolean isBothArrived() {
         return fluxWeedTime != 0L && crabHairTime != 0L;
-    }
-
-    public boolean isFluxWeedFirst() {
-        if (fluxWeedTime == 0L) {
-            return false;
-        }
-        if (crabHairTime == 0L) {
-            return true;
-        }
-        return fluxWeedTime < crabHairTime;
-    }
-
-    public void reset() {
-        fluxWeedTime = 0L;
-        crabHairTime = 0L;
     }
 
 }

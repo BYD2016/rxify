@@ -3,7 +3,7 @@ package com.ragdroid.rxify.entity;
 /**
  * Created by garimajain on 09/11/16.
  */
-public class PolyJuice {
+public final class PolyJuice {
     FluxWeed weed;
     Student.Hair hair;
 

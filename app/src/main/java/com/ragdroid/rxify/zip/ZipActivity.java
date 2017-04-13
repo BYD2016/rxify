@@ -13,7 +13,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ZipActivity extends BaseActivity<ZipContract.Presenter> implements ZipContract.View {
+public class ZipActivity extends BaseActivity<ZipContract.Presenter> implements
+        ZipContract.View {
 
     @BindView(R.id.zip_refresh) SwipeRefreshLayout refreshLayout;
     @BindView(R.id.zip_one_one) View oneOne;
@@ -34,31 +35,26 @@ public class ZipActivity extends BaseActivity<ZipContract.Presenter> implements 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        clearView();
-        refreshLayout.setRefreshing(true);
-    }
-
-    @Override
-    protected void onPause() {
-        refreshLayout.setRefreshing(false);
-        super.onPause();
-    }
-
-    @Override
     protected void setupActivity(Bundle savedInstanceState) {
         ButterKnife.bind(this);
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                clearView();
-                if (presenter != null) {
-                    presenter.preparePolyjuice();
-                }
+        refreshLayout.setOnRefreshListener(() -> {
+            clearView();
+
+            if (presenter != null) {
+                presenter.preparePolyjuice();
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        clearView();
+
+        // 显示刷新进度条
+        refreshLayout.setRefreshing(true);
     }
 
     private void clearView() {
@@ -68,6 +64,14 @@ public class ZipActivity extends BaseActivity<ZipContract.Presenter> implements 
         twoTwo.setVisibility(View.GONE);
         three.setVisibility(View.GONE);
     }
+
+    @Override
+    protected void onPause() {
+        // 隐藏刷新进度条
+        refreshLayout.setRefreshing(false);
+        super.onPause();
+    }
+
 
     @Override
     public void showFluxWeed(ZipData zipData) {

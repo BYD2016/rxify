@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/zip_refresh"
     android:layout_marginTop="?actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/zip_refresh"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    >
     <LinearLayout
-
         android:id="@+id/content_zip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,24 +26,28 @@
             <View
                 android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                style="@style/LineStyle"/>
+                style="@style/LineStyle"
+                />
             <TextView
                 android:id="@+id/zip_one_one"
-                android:layout_marginLeft="@dimen/space_medium"
-                style="@style/MarbleStyle.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_medium"
                 android:layout_gravity="center_vertical"
-                android:text="@string/zip_crab_hair"/>
+                android:text="@string/zip_crab_hair"
+                style="@style/MarbleStyle.Blue"
+                />
             <TextView
                 android:id="@+id/zip_one_two"
-                android:visibility="gone"
                 android:layout_marginLeft="@dimen/space_xlarge"
-                style="@style/MarbleStyle.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/zip_crab_hair"/>
+                android:text="@string/zip_crab_hair"
+                android:visibility="gone"
+                tools:visibility="visible"
+                style="@style/MarbleStyle.Blue"
+                />
         </FrameLayout>
 
         <FrameLayout
@@ -56,21 +60,24 @@
                 style="@style/LineStyle"/>
             <TextView
                 android:id="@+id/zip_two_one"
-                android:visibility="gone"
-                android:layout_marginLeft="@dimen/space_medium"
-                style="@style/MarbleStyle.Green"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_medium"
                 android:layout_gravity="center_vertical"
-                android:text="@string/zip_flux_weed"/>
+                android:text="@string/zip_flux_weed"
+                android:visibility="gone"
+                tools:visibility="visible"
+                style="@style/MarbleStyle.Green"
+                />
             <TextView
                 android:id="@+id/zip_two_two"
-                android:layout_marginLeft="@dimen/space_xlarge"
-                style="@style/MarbleStyle.Green"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_xlarge"
                 android:layout_gravity="center_vertical"
-                android:text="@string/zip_flux_weed"/>
+                android:text="@string/zip_flux_weed"
+                style="@style/MarbleStyle.Green"
+                />
         </FrameLayout>
 
         <FrameLayout
@@ -80,15 +87,17 @@
             <View
                 android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                style="@style/LineStyle"/>
+                style="@style/LineStyle"
+                />
             <TextView
                 android:id="@+id/zip_three"
-                android:layout_marginLeft="@dimen/space_xlarge_plus_buffer"
-                style="@style/MarbleStyle.Purple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_xlarge_plus_buffer"
                 android:layout_gravity="center_vertical"
-                android:text="@string/zip_poly_juice"/>
+                android:text="@string/zip_poly_juice"
+                style="@style/MarbleStyle.Purple"
+                />
         </FrameLayout>
 
     </LinearLayout>
