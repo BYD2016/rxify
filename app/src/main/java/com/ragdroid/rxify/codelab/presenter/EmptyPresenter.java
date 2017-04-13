@@ -12,7 +12,8 @@ import io.reactivex.disposables.Disposable;
  * Created by garimajain on 15/01/17.
  */
 
-public class EmptyPresenter extends BaseCLPresenter<Object> implements CodeLabContract.Presenter {
+public final class EmptyPresenter extends BaseCLPresenter<Object> implements
+        CodeLabContract.Presenter {
 
     @Inject
     public EmptyPresenter(BaseSchedulerProvider provider) {
@@ -22,7 +23,7 @@ public class EmptyPresenter extends BaseCLPresenter<Object> implements CodeLabCo
     @Override
     protected Disposable getDisposable() {
         return Observable.empty()
-                .compose(lazyTransformer)
+                .compose(super.lazyTransformer)
                 .subscribe(next, error, complete);
     }
 }

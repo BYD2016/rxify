@@ -20,33 +20,28 @@ public abstract class BaseCLPresenter<T> extends
 
     private Disposable disposable;
 
-    protected Consumer<T> next = new Consumer<T>() {
-        @Override
-        public void accept(T t) throws Exception {
-            if (getView() != null) {
-                getView().append(t.toString());
-            }
+    protected Consumer<T> next = t -> {
+        if (getView() != null) {
+            getView().append(t.toString());
         }
     };
 
-    protected Action complete =  new Action() {
-        @Override
-        public void run() throws Exception {
-            if (getView() != null) {
-                getView().append("Completed.");
-            }
+    protected Action complete = () -> {
+        if (getView() != null) {
+            getView().append("Completed.");
         }
     };
 
-    protected Consumer<Throwable> error = new Consumer<Throwable>() {
-        @Override
-        public void accept(Throwable throwable) throws Exception {
-            if (getView() != null) {
-                getView().append("Error : " + throwable.getMessage());
-                throwable.printStackTrace();
-            }
+    protected Consumer<Throwable> error = throwable -> {
+        if (getView() != null) {
+            getView().append("Error : " + throwable.getMessage());
+            throwable.printStackTrace();
         }
     };
+
+    protected ObservableTransformer<T, T> lazyTransformer = upstream ->
+            upstream.subscribeOn(provider.io())
+                    .observeOn(provider.ui());
 
     public BaseCLPresenter(BaseSchedulerProvider provider) {
         super(provider);
@@ -71,13 +66,5 @@ public abstract class BaseCLPresenter<T> extends
     }
 
     protected abstract Disposable getDisposable();
-
-    protected ObservableTransformer<T, T> lazyTransformer = new ObservableTransformer<T, T>() {
-        @Override
-        public ObservableSource<T> apply(Observable<T> upstream) {
-            return upstream.subscribeOn(provider.io())
-                    .observeOn(provider.ui());
-        }
-    };
 
 }

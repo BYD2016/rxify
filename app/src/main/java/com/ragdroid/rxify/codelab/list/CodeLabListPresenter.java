@@ -14,7 +14,8 @@ import java.util.List;
  */
 
 public class CodeLabListPresenter extends AbstractPresenter<CodeLabListContract.View> implements
-        CodeLabListContract.Presenter, CodeLabItemHandler {
+        CodeLabListContract.Presenter,
+        CodeLabItemHandler {
 
 
     private List<CodeLabData> arrayList;

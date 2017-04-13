@@ -26,19 +26,18 @@ import butterknife.ButterKnife;
  * Created by garimajain on 18/03/17.
  */
 
-public class CodeLabListActivity extends BaseActivity<CodeLabListPresenter> implements CodeLabListContract.View,
+public final class CodeLabListActivity extends BaseActivity<CodeLabListPresenter> implements
+        CodeLabListContract.View,
         ItemHandlerProvider<CodeLabItemHandler> {
 
+    private ItemsViewAdapter adapter;
 
     @BindView(R.id.codelab_list) RecyclerView codeLabList;
-    private ItemsViewAdapter adapter;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_codelab_list;
     }
-
-
 
     @Override
     protected void injectFrom(ActivityComponent activityComponent) {
@@ -48,12 +47,20 @@ public class CodeLabListActivity extends BaseActivity<CodeLabListPresenter> impl
     @Override
     protected void setupActivity(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+
+        initCodeLabListView();
+    }
+
+    private void initCodeLabListView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         codeLabList.setLayoutManager(layoutManager);
-        adapter = new ItemsViewAdapter(this);
-        DividerItemDecoration decor = new DividerItemDecoration(this, layoutManager.getOrientation());
+
+        DividerItemDecoration decor = new DividerItemDecoration(this,
+                layoutManager.getOrientation());
         codeLabList.addItemDecoration(decor);
+
+        adapter = new ItemsViewAdapter(this);
         codeLabList.setAdapter(adapter);
     }
 

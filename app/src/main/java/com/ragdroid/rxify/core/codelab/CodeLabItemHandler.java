@@ -7,7 +7,5 @@ import com.ragdroid.rxify.entity.CodeLabData;
  */
 
 public interface CodeLabItemHandler {
-
     void onItemClicked(CodeLabData data);
-
 }

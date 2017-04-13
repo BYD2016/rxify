@@ -3,6 +3,7 @@ package com.ragdroid.rxify.library;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -62,10 +63,18 @@ public final class LibraryActivity extends BaseActivity<LibraryContract.Presente
     @Override
     protected void setupActivity(@Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        initRecyclerView();
+    }
 
+    private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(itemDecoration);
+
         adapter = new ItemsViewAdapter(this);
         recyclerView.setAdapter(adapter);
     }

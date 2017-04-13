@@ -18,8 +18,13 @@ import butterknife.ButterKnife;
  * Created by garimajain on 18/03/17.
  */
 
-public class CodeLabItem extends BaseItem<CodeLabData, CodeLabItemHandler, CodeLabItem.ViewHolder> {
-    public CodeLabItem(CodeLabData data, ItemHandlerProvider<CodeLabItemHandler> itemHandlerProvider) {
+public final class CodeLabItem extends BaseItem<
+        CodeLabData,
+        CodeLabItemHandler,
+        CodeLabItem.ViewHolder> {
+
+    public CodeLabItem(CodeLabData data,
+                       ItemHandlerProvider<CodeLabItemHandler> itemHandlerProvider) {
         super(data, itemHandlerProvider);
     }
 
@@ -38,12 +43,9 @@ public class CodeLabItem extends BaseItem<CodeLabData, CodeLabItemHandler, CodeL
         CodeLabItem.ViewHolder viewHolder = getViewHolder();
         CodeLabData book = getItemData();
         viewHolder.name.setText(book.getName());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getitemHandler() != null) {
-                    getitemHandler().onItemClicked(getItemData());
-                }
+        viewHolder.itemView.setOnClickListener(view -> {
+            if (getitemHandler() != null) {
+                getitemHandler().onItemClicked(getItemData());
             }
         });
     }
@@ -53,7 +55,7 @@ public class CodeLabItem extends BaseItem<CodeLabData, CodeLabItemHandler, CodeL
         return ItemType.BOOK;
     }
 
-    static class ViewHolder extends BaseViewHolder {
+    static final class ViewHolder extends BaseViewHolder {
         @BindView(R.id.codelab_name) TextView name;
 
         ViewHolder(View view) {

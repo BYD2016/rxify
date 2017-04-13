@@ -62,9 +62,6 @@ public enum CodeLabData {
         return id;
     }
 
-    private final String name;
-    private final int id;
-
     CodeLabData(int id, String name) {
         this.name = name;
         this.id = id;
@@ -122,6 +119,7 @@ public enum CodeLabData {
         }
     }
 
-
+    private final String name;
+    private final int id;
 
 }

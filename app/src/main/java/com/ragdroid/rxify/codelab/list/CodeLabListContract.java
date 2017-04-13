@@ -14,9 +14,7 @@ import java.util.List;
 public interface CodeLabListContract {
 
     interface View extends BaseView {
-
         void setDataList(List<CodeLabData> arrayList);
-
         void showCodeLab(int itemId);
     }
 
