@@ -23,6 +23,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         implements BaseView {
 
     @Inject protected T presenter;
+
     protected ActivityModule activityModule;
     protected Toolbar toolbar;
 
@@ -30,17 +31,20 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         AppComponent appComponent = ((RxifyApplication) getApplication()).getAppComponent();
-        activityModule = new ActivityModule();
+        this.activityModule = new ActivityModule();
         ActivityComponent activityComponent = DaggerActivityComponent.builder()
                 .appComponent(appComponent)
-                .activityModule(activityModule)
+                .activityModule(this.activityModule)
                 .build();
-        injectFrom(activityComponent);
-        ((AbstractPresenter) presenter).onViewCreated(this);
-        setupActivity(savedInstanceState);
+
+        this.injectFrom(activityComponent);
+        ((AbstractPresenter) presenter).onViewAttach(this);
+        this.setupActivity(savedInstanceState);
     }
 
 
@@ -56,16 +60,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        ((AbstractPresenter) presenter).onViewDetach();
+        activityModule = null;
+        super.onDestroy();
+    }
+
     protected abstract int getLayoutId();
 
     protected abstract void injectFrom(ActivityComponent activityComponent);
 
     abstract protected void setupActivity(Bundle savedInstanceState);
 
-    @Override
-    protected void onDestroy() {
-        ((AbstractPresenter) presenter).onViewDestroyed();
-        activityModule = null;
-        super.onDestroy();
-    }
 }

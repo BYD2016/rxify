@@ -15,26 +15,29 @@
     tools:showIn="@layout/activity_home">
 
     <TextView
-        android:layout_marginBottom="@dimen/keyline_1"
         android:id="@+id/rxify_zipyosa"
-        style="@style/MarbleStyle.Blue"
-        android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
-        android:text="@string/home_zip"/>
-    <TextView
+        android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/keyline_1"
-        android:id="@+id/rxify_library"
-        style="@style/MarbleStyle.Green"
-        android:layout_width="match_parent"
         android:gravity="center"
+        style="@style/MarbleStyle.Blue"
+        android:text="@string/home_zip"
+        />
+    <TextView
+        android:id="@+id/rxify_library"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/home_library"/>
+        android:layout_marginBottom="@dimen/keyline_1"
+        style="@style/MarbleStyle.Green"
+        android:gravity="center"
+        android:text="@string/home_library"
+        />
     <TextView
         android:id="@+id/rxify_cl"
-        style="@style/MarbleStyle.Purple"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
-        android:text="@string/title_cl"/>
+        android:gravity="center"
+        android:text="@string/title_cl"
+        style="@style/MarbleStyle.Purple"
+        />
 </LinearLayout>

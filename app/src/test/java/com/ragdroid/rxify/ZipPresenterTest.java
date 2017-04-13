@@ -33,7 +33,7 @@ public class ZipPresenterTest extends BasePresenterTest {
     public void init() {
         super.init();
         presenter = new ZipPresenter(magicalDataSource, studentDataSource, schedulerProvider);
-        presenter.onViewCreated(view);
+        presenter.onViewAttach(view);
     }
 
 

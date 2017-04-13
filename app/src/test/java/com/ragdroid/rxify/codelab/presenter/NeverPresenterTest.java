@@ -27,7 +27,7 @@ public class NeverPresenterTest extends BasePresenterTest {
     public void init() {
         super.init();
         presenter = new NeverPresenter(schedulerProvider);
-        presenter.onViewCreated(view);
+        presenter.onViewAttach(view);
     }
 
     @Test

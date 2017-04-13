@@ -1,5 +1,7 @@
 package com.ragdroid.rxify.logic;
 
+import android.support.annotation.NonNull;
+
 import com.ragdroid.rxify.codelab.CodeLabContract;
 import com.ragdroid.rxify.codelab.list.CodeLabListPresenter;
 import com.ragdroid.rxify.codelab.misc.TimeTurnerPresenter;
@@ -42,10 +44,11 @@ import dagger.Provides;
  */
 @Module
 @ActivityScope
-public class ActivityModule {
+public final class ActivityModule {
 
     @ActivityScope
     @Provides
+    @NonNull
     public HomeContract.Presenter provideHomePresenter(HomePresenter presenter) {
         return presenter;
     }

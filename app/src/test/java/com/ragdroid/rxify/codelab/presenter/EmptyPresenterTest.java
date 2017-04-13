@@ -25,7 +25,7 @@ public class EmptyPresenterTest extends BasePresenterTest {
     public void init() {
         super.init();
         presenter = new EmptyPresenter(schedulerProvider);
-        presenter.onViewCreated(view);
+        presenter.onViewAttach(view);
     }
 
     @Test

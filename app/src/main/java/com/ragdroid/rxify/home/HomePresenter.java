@@ -9,12 +9,14 @@ import javax.inject.Inject;
  * Created by garimajain on 05/11/16.
  */
 
-public class HomePresenter extends AbstractPresenter<HomeContract.View> implements HomeContract.Presenter {
+public final class HomePresenter extends AbstractPresenter<HomeContract.View> implements
+        HomeContract.Presenter {
 
     @Inject
     public HomePresenter(BaseSchedulerProvider provider) {
         super(provider);
     }
+
 
     @Override
     public void subscribe() {

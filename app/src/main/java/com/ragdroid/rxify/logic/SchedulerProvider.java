@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by garimajain on 21/11/16.
  */
 
-public class SchedulerProvider implements BaseSchedulerProvider {
+public final class SchedulerProvider implements BaseSchedulerProvider {
 
     @Inject
     public SchedulerProvider() {

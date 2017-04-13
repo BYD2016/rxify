@@ -21,11 +21,11 @@ public abstract class AbstractPresenter<V extends BaseView> {
 
     private V view;
 
-    public void onViewCreated(V view) {
+    public void onViewAttach(V view) {
         this.view = view;
     }
 
-    public void onViewDestroyed() {
+    public void onViewDetach() {
         this.view = null;
     }
 }
